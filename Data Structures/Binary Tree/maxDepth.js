@@ -27,52 +27,72 @@ function buildBinaryTree(arr) {
             }
             attached += 1; 
         }
-        console.log('v = ', v, 'root = ', root);
     });
     return root;
 }
 
 
-
-let max;
-var maxDepth = function(root) {
-    if(!root.left && !root.right) {
+// my version : doesn't work all the times
+// let max;
+// var maxDepth = function(root) {
+//     if(!root.left && !root.right) {
         
-        console.log('ret 1 and root= ', root);
-        return 1;
-    }
-    if(root.left) {
-        console.log('recursion and roo.left = ', root.left);
-        max = 1 + maxDepth(root.left);
-        console.log('exiting if root.left and max = ', max);
-    }
-    if(root.right) {
-        console.log('recursion and roo.right = ', root.right);
-        max = 1 + maxDepth(root.right);
-        console.log('exiting if root.right and max = ', max);
-    }
-    return max;
-};
+//         console.log('ret 1 and root= ', root);
+//         return 1;
+//     }
+//     if(root.left) {
+//         console.log('recursion and roo.left = ', root.left);
+//         max = 1 + maxDepth(root.left);
+//         console.log('exiting if root.left and max = ', max);
+//     }
+//     if(root.right) {
+//         console.log('recursion and roo.right = ', root.right);
+//         max = 1 + maxDepth(root.right);
+//         console.log('exiting if root.right and max = ', max);
+//     }
+//     return max;
+// };
 
-// var array = [3,9,20,null,null,15,7]
+
+// Standard version
+const maxDepth = (root) => {
+    let maxDepth = 0;
+    let BFS = (node, level) => {
+        if(node === null) return;
+        if(level>maxDepth) maxDepth = level;
+        BFS(node.left, level+1);
+        BFS(node.right, level+1);
+    }
+    BFS(root, 1);
+    return maxDepth;
+}
+
 
 // var array = [
-//     8, 
-//     10, 12, 
-//     5, 3, 6, 4, 
-//     5, 6, 7, 8, 5, 6, 7, 8,
-//     5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8,
-//     5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8,
-// ];
+//      3,
+//     9,20,
+// null,null,15,7
+// ]
 
 var array = [
     8, 
-    null, 12, 
-         5, 3,
-    null, 6, 7, 8,
-        5, null, null, null];
+    10, 12, 
+    5, 3, 6, 4, 
+    5, 6, 7, 8, 5, 6, 7, 8,
+    5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8,
+    5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8,
+];
+
+// var array = [
+//     8, 
+//     null, 12, 
+//          5, 3,
+//     null, 6, 7, 8,
+//         5, null, null, null];
 
 let tree = buildBinaryTree(array);
 console.log('tree = ', tree);
 max = maxDepth(tree);
+console.log('----------------------------------');
+maxDepth(tree);
 console.log(max);
