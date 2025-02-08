@@ -1,0 +1,753 @@
+Viva
+-------------------------------------------------------------------
+HTML CSS
+
+A. Circle and rectangle problem
+	https://i.ibb.co/RDBW1Rz/pos.png
+
+	https://ibb.co/tJx5SV8
+
+
+1. What is box-model
+ A. It means that every element in html can be considered as boxes. It is made up of 4 parts :-
+	Content, Padding, Border and Margin
+
+2. What is box-sizing property
+ A. This property has values like border-box and content-box. It specifies that if we give width or height of any element, then does that value inclue the padding and border values (in border-box) or are they added separately (content-box : width only applies to content part).
+
+
+3. Different position values?
+Ans. Static, Fixed, Relative, Absolute, Sticky
+Static: top, right etc do not work in this case.
+Fixed: fixed at specified top, left, right etc values, wrt viewport
+Relative: top, right, left, bottom etc values affect its position wrt itself.
+Absolute: t, r, l, b values affect its position wrt its closest parent that has position property set (to anything except unset or static). If none parents have any position property set then its wrt body.
+Sticky: position value varies b/w fixed and relative. If we say pos: sticky; top: 0, then at all scroll positions except when the element is at 0px from top, it is relative and at top = 0 pos it becomes fixed to top;
+
+
+
+
+
+WEB : 
+
+1. What is CORS ?
+--> cross origin resource sharing. Generally for all requests browser makes a preflight request before the actual Ajax call. For this preflight req the requested domain return a response which tells the browser that whether the  requesting domain can access the resources of the requested domain or not. If the requested domain wants to share its data it will send a value in its response's header as :
+Allow-('Access-Control-Allow-Origin', '*'). To give access to a particular domain instead of * we can set that domain name as this headers value. It can also limit it to some particular methods for the requesting domain by setting ('Access-Control-Allow-Methods', 'GET').
+
+
+2. Difference b/w async and defer ?
+-> In normal case when html parsing is going on and it encounters a script tag. It pauses html parsing. Fetches the script. Executes it. And then html parsing continues.
+   Async: when script tag is encoutered, it fetches it in parallel while html continues parsing. Once script is fetched, parsing is paused and script is executed. Then again parsing resumes.
+   Defer: when script tag is encoutered, it fetches it in parallel while html continues parsing  and it completes the parsing. Once parsing is complete the fetched script is executed.
+
+
+3. Different types of requests? Get put post delete etc
+
+
+
+3.A What is Callback ? ***
+
+
+
+
+JS -- (refer this : https://medium.com/@ajmeyghani/interview-questions-1145e3763bce)
+
+1. Difference between Normal function and Arrow Function ? (how they differ in call, bind and apply).  ----->>https://dmitripavlutin.com/differences-between-arrow-and-regular-functions/
+	a. Lexical scoped i.e this's val = this of outer func; so now there's no need for -> var self = this; 
+	b. Cannot create objects for arrow funcs 
+	c. Arguments keyword inside an arrow func points to arguments keyword of outer function
+	d. When used as methods (i.e inside object) -> in contrast with regular functions, the method defined using an arrow binds this lexically to the class instance, and are the preferred way for using as methods.
+ 		this keyword might sometimes lose context if used inside regular function method eg. when that method is passed to set timeout. In that case we can bind the context. 
+
+	also => Math.max.apply(null, [1, 2, 3]) is equivalent to Math.max(1, 2, 3). =>=> use of apply, when we want to send an array to a function that takes non array params. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+** ASK THIS BEFORE THE DEFINITION: 
+function hello() {
+  setTimeout(function() {
+    console.log(this.name);
+  }, 100);
+}
+hello.call({name: 'tom'});
+
+--> it will log undefined. But we can fix this by using arrow function in set timeout callback and also by storing this in another variable and using that varible in set timeout callback.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+** ASK THIS BEFORE THE DEFINITION: 
+The following code won’t print the persons's name? Can you explain why? And how can we fix it?
+function Person(name) {
+  this.name = name;
+}
+Person.prototype.getName = () => {
+  return this.name;
+};
+const tom = new Person('Tom');
+console.log(tom.getName());
+
+Ans. The reason is that the snippet above is using an arrow function for getName. Arrow functions cannot create a context and therefore this will be the global object in non-strict mode. To solve this, we can simply use a non-arrow function for getName.
+
+
+
+
+2. var x = {v1:20, v2:[{a:1,b:2}]}; var z = {...x, v2:[{c:7}]}; what is value of z (sde1)
+
+
+
+
+3. What is event delegation? And, how to attach event listener on elements that are added at a later stage or dynamically in both jQuery and js?
+Ans. Event delegation is done by means of capturing and bubbling. The idea is that if we have a lot of elements handled in a similar way, then instead of assigning a handler to each of them – we put a single handler on their common ancestor.
+
+
+// bind click handler to element that is added later/dynamically
+document.addEventListener('click', function(e){
+    if(e.target && e.target.id== 'myDynamicallyAddedElementID'){
+         //do something
+    }
+});
+
+//Alternatively, if your using jQuery:
+$(document).on('click','#myDynamicallyAddedElementID',function(){
+    //do something
+});
+
+
+
+
+4. Difference between e.target vs e.currentTarget
+ A. if during bubbling onClick for parent (like ul, or select) is triggered e.cT refers to parent and e.t refers to clicked item (li or option)
+
+4.1 -> if a <ul> has many <li> say 1000, what's the efficient way to handle. On click event here
+ A. Attach it on <ul> and get data about the <li> using e.target.
+
+
+5. What is origin?
+-> it is made up of protocol://host(or domain):port -> these 3 parts  if either of it changes we say its a different origin.
+
+
+6. Local Storage vs Session Storage ?
+	The Web Storage API provides mechanisms by which browsers can store key/value pairs, in a much more intuitive fashion than using cookies.
+	Both are key value pairs stored in browser. Values are only stored as strings. To store any other data type we can use JSON.stringify and access by Json.parse.
+	These data are not sent to server for each request like it happens for cookies.
+	Size of session storage is min 5 Mb, which is much more than that of cookies which is 4096 bytes. LS has most storage out of these 3.
+	Both are origin specific i.e if any Thing in origin changes we will have different local storage values for it.
+	These help in faster access of data which is safe to keep in browser side, this is good for performance as n/w call can be avoided.
+	Session storage data is persistent only for current session. If that particular tab or window closes this data is cleared.
+
+
+7. Diff ways to create an object in jS and also to inherit?
+-> function constructor method and Object.create
+  Eg function constructor
+	// whatever we want to inherit from one object or constructor function we put it in its Prototype property. This is prototypal inheritance. And the Prototype property of an object is not its own prototype but it becomes prototype of the objects we create from it or which inherit from it.
+ 	var Person = function(age) {
+		this.age = age;
+	};
+	var Person.Prototype.calculateAge = function {return ... };
+	var John = new Person(20);
+	Also : John.__proto__ === Person.Prototype => gives true
+  Eg Object.create
+	var x = {
+	     a: 20;
+	     b: 30;
+ 	}
+	var y = Object.create(x);
+	// it also takes a second param which tells initial values for the created obj. 2nd param is an object but Its syntax is a bit diff.
+	var z = Object.create(x, { name: {value: "Ram" } } );
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+5. Output of :
+  const arr = [];
+for (var i=0; i < 3; i++) {
+    arr.push(() => i);
+}
+arr.map(x => x());    ---------------->.  // [3,3,3]
+
+How to correct it to get 0,1, 2?
+ ans. Let I = 0; I< 3; I++     reason being for(...; ...; ..) desugars to a particular  form and there the let alternative is able to preserve values
+
+
+5.1. Output of :
+const user = {
+  id: 551,
+  name: 'Tom',
+  getId() {
+    return this.id;
+  },
+  credentials: {
+    id: 120,
+    username: 'tom',
+    getId() {
+      return this.id;
+    }
+  },
+};
+
+const getId = user.credentials.getId;
+console.log(getId());
+
+
+Ans. Undefined, coz this will point to window.
+
+How to correct it to get 551. -> console.log(getId.call(user))
+
+
+6. What is debouncing and where can it be used. 
+Ans. Debouncing is one way to solve this issue by limiting the time that needs to pass by until a function is called again. 
+	IN SIMPLER WORDS make a call if the time gap between two event triggers is of certain amount say 300ms gap b/w 2 key strokes in an input field or b/w resizing of window.
+     It can be used on onScroll event or window resize events. 
+
+EXAMPLE: 
+// debounce function that will wrap our event
+function debounce(fn, delay) {
+  // maintain a timer
+  let timer = null;
+  // closure function that has access to timer
+  return function() {
+    // get the scope and parameters of the function 
+    // via 'this' and 'arguments'
+    let context = this;
+    let args = arguments;
+    // if event is called, clear the timer and start over
+    clearTimeout(timer);
+    timer = setTimeout(function() {
+      fn.apply(context, args);
+    }, delay);
+  }
+}
+// function to be called when user scrolls
+function foo() {
+  console.log('You are scrolling!');
+}
+
+// wrap our function in a debounce to fire once 2 seconds have gone by
+let elem = document.getElementById('container');
+elem.addEventListener('scroll', debounce(foo, 2000));
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+7. What is throttling? 
+Ans.	It is similar to debouncing but a little different.	
+	Throttling enforces a maximum number of times a function can be called over time. As in “execute this function at most once every 100 milliseconds.”
+	IN SIMPLER WORDS : regulate the Ajax call. Make a call every 300sec. After the first call ignore all triggers for 300ms and then for the next trigger make the Ajax call.
+
+Some ways to implement debouncing and throttling :-
+- Wait until the user stops resizing the window
+- Don’t fire an ajax event until the user stops typing
+- Measure the scroll position of the page and respond at most every 50ms
+- Ensure good performance as you drag elements around in an app
+
+
+doubts - throttling, debouncing memoization
+doubt - can we create new obj from existin obj using obj destructure eg. return {
+                ...state,
+                ...payload,
+            };
+Ans -->. var clonedArray = JSON.parse(JSON.stringify(nodesArray));  works for complex arrays as well
+BUT BUT this method is not type safe. Check below link and safe solution.
+https://medium.com/nerd-for-tech/create-shallow-and-deep-copy-without-using-any-third-party-library-in-js-3c761cb56762
+
+
+DEBOUNCING VS THROTTLING
+Deb: Make a func or api call, only if the time gap BETWEEN 2 EVENT TRIGGERS is of certain amount say 300ms gap b/w 2 key strokes in an input field or b/w resizing of window.
+i.e Lets say I debounced a func by 2 sec. And, I press the key once -> function is called. Then if I quickly keep pressing the keys 100 times  func wont be called. If the 100 and 101 key presses were 2 sec apart then again func will be called.
+
+Thrott: Throttled for 2 sec. eg. If I press the key once -> func is called. I keep pressing key repeatedly. Regardless of how many times I press and whats the time diff b/w 2 key presses, the function will be called 2 secs after the 1st func call.
+
+
+
+
+8. What is prototypal inheritance ?
+Ans: If any property or method is placed on prototype of constructor function they can be accessed by any object created by that cons func
+-> __proto__ is how objs created by cons func get access to these properties and methods. This link is created when new keyword is used. So whatever is placed on prototype is commonly shared b/w obs of that constructor func.
+
+whatever we put on prototype object has a single copy and all objects created from that constructor function share a single copy of whatever we had put on prototype. eg. the color func below.
+
+
+function Vehicle(type) {
+	 this.type = type
+   this.horn = function() {
+   		console.log(`${this.type} says HONK HONK`);
+   }
+}
+Vehicle.prototype.color = function() {
+	console.log(`${this.type} has color red`)
+}
+
+function Maruti() {
+	Vehicle.call(this, 'maruti')
+}
+Maruti.prototype = Object.create(Vehicle.prototype)
+
+
+var maruti = new Maruti();
+var ford = new Vehicle('ford');
+var tata = new Vehicle('TATA');
+
+ford.horn === tata.horn // false
+ford.color === tata.color // true
+
+
+---- eg 2
+function Person() {}
+Person.prototype.sayHi = function() {
+  console.log("hi!");
+};
+let nick = new Person();
+nick.sayHi(); // hi!
+--> What’s going on here is prototypal inheritance. When nick.sayHi()is called, a sayHi method directly belonging to nick is looked for, but not found. When this happens, nick’s prototypal properties are searched and sayHi is successfully found and executed. This is called searching the prototype chain.
+--> everything in js has an object attached to it called Prototype or __proto__.  And it is like a chain until __proto__ = null.
+--> to inherit we can just attach something / some object to __proto__ or .Prototype of another obj.
+--> when we try to access a property of an obj first, it tries to find in its own properties. If present it takes that value. Otherwise it starts looking in its prototype chain or __proto__ values. If same variable / property is present in __proto__ also it will take its own properties value and not the one in prototype chain.
+
+
+
+
+
+REACT
+
+1. How can we pass values from child component to parent component
+ A. pass a parameterized function in parent component to child and from child call that func and pass it value as param
+
+2. What are hooks
+ A. Hooks are functions that let us "hook into" react state and lifecycle features from Functional Components. Hooks dont work insde Classes.
+	TO use hooks inside a class component -> https://infinum.com/the-capsized-eight/how-to-use-react-hooks-in-class-components
+
+2.A. What is a "render prop" ?
+-> Just another technique for sharing code between React components, using/passing a prop, whose value, is a function. 
+A render prop is A Function Prop That The Component Uses To DETERMINE What To Render.
+eg. <div>
+        <h1>Move the mouse around!</h1>
+        <Mouse render={mouse => (
+          <Cat mouse={mouse} />
+        )}/>
+      </div>
+
+---> just because the pattern is called “render props” you don’t have to use a prop named render to use this pattern. In fact, any prop that is a function that a component uses to know what to render is technically a “render prop”.
+
+---> Render props can be used to create a higher order functions easily 
+eg. function withMouse(Component) {
+  return class extends React.Component {
+    render() {
+      return (
+        <Mouse render={mouse => (
+          <Component {...this.props} mouse={mouse} />
+        )}/>
+      );
+    }
+  }
+}
+
+
+
+
+
+3. What is HOC 
+ A. HOC gets a component as an input, and return that same component with some additional props.
+	https://infinum.com/the-capsized-eight/how-to-use-react-hooks-in-class-components
+
+4. What are fragments i.e <> ... </>
+ A. A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.
+eg. <React.Fragment>
+      <ChildA />
+      <ChildB />
+      <ChildC />
+    </React.Fragment>
+----
+class Table extends React.Component {
+  render() {
+    return (
+      <table>
+        <tr>
+          <Columns />
+        </tr>
+      </table>
+    );
+  }
+}
+class Columns extends React.Component {
+  render() {
+    return (
+      <div>
+        <td>Hello</td>
+        <td>World</td>
+      </div>
+    );
+  }
+}
+
+RESULTS IN ////////
+<table>
+  <tr>
+    <div>
+      <td>Hello</td>
+      <td>World</td>
+    </div>
+  </tr>
+</table>
+
+Fragments solve this problem. We can wrap return value in <> </> instead of <div> in Columns component.
+
+5. What is useReducer ?
+ A.
+
+6. How to implement ComponentDidMount using useEffect()  ?
+ A. useEffect(() => {
+	... 
+    }, []);
+
+7. How to perform a clean up when component unmounts in functions components ?
+ A. By returning a function from inside of that useEffect() which implements componentDidMount. 
+  Eg. useEffect(() => {
+        ... some code here ...
+	// below function will only be executed during unmount.
+        return function cleanup() {
+            globalCountForHideErrMsgAndSetEmailFuncCalls = 0;
+        };
+    }, []);
+
+
+Problem Solving
+------------------------------------------------------------------
+
+HTML CSS
+1. Exactly center a div, with no height and width specified, inside another div or in screen 
+ A. top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);
+
+2. Circle and rectangle problem
+	https://ibb.co/tJx5SV8
+
+
+
+
+
+
+
+
+
+JS
+1. deep cloning array and objects and complex array and objects. diff questions
+  ---> var clonedArray = JSON.parse(JSON.stringify(x));  this works fine for arrays also	
+ 
+Ques.  var x = {a: 20, b:{ arr: [2,4], str: "raj", ob: {arr2: [66,55], ob2: {str2: "dd"}}}}
+
+	var x = [{obdata1: "hello", obdata2: {val: "world"}}, [{obdata1: "hello2", obdata2: {val: "world2"}}], 22]
+
+
+2. What is module revealing pattern and give example.
+Ans. It is made of 3 things.  
+	1. An outer or wrapper IIFE, which prevents global namespace pollution. 
+	2. Public/private members and public/private methods
+	3. Whatever we return inside an object at end means a public member/method and what we do not return is private member/method
+
+// For readability:  private members/methods are prefixed with _  and   return is kept at top so that other readers can quickly see what is exposed and what's not.
+var namesCollection = (function() {
+    // private members
+    var objects = [];
+    // public members, exposed with return statement
+    return {
+      addName: addObject,
+    };
+    
+    // Public Method
+    function addObject(object) {
+      objects.push(object);
+      _printMessage(object);
+    }
+  
+    // Private Method - Prefixed with single underscore
+    function _printMessage(object) {
+      console.log("Object successfully added:", object);
+    }
+})();
+
+	
+
+3. Closure:  
+A. Write a function that would allow you to do this.  
+	var addSix = createBase(6);
+	addSix(10); // returns 16
+	addSix(21); // returns 27
+  Ans: createBase = (baseNumber) => (N) => baseNumber + N; or more verbosely ; 
+
+     function createBase(baseNumber) {
+  	  return function(N) {
+    		// we are referencing baseNumber here even though it was declared
+   		// outside of this function. Closures allow us to do this in JavaScript
+    	  return baseNumber + N;
+  	}
+       }
+
+B. How would you use a closure to create a private counter?
+Ans. 
+function counter() {
+  var _counter = 0;
+  return {
+    add: function(increment) { _counter += increment; },
+    retrieve: function() { return 'The counter is currently at: ' + _counter; }
+  }
+}
+var c = counter();
+c.add(5); 
+c.add(9);
+
+
+
+4. SDE2 -> write a function sum that can do this : sum(1)(3)(4) = 8 , should be capable of any levels deep like sum(1)(2).....(n)
+Ans. Sum = a => b => b ? sum(a+b) : a;
+
+
+
+
+REACT
+
+
+
+
+
+
+doubts:
+ /home/kumarsubham/newstack/app/components/pages/ppmp/actions/order.js
+ how is dispatch, used in this file
+ different ways to access dispatch, store and state at any time in redux and also in pure react
+
+
+
+
+
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$    PREP WORKS    $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$    PREP WORKS    $$$$$$$$$$$$$$$$$$$$$$$
+
+
+DEBOUNCING : attach event that fires on scroll but when scroll stops. Implemented using lodash here (https://css-tricks.com/the-difference-between-throttling-and-debouncing/)
+
+Html:
+ <div class="area area-3">
+  <div class="inside inside-3">
+    <div class="content content-3"></div>
+    <div class="thing thing-3">Debounced</div>
+  </div>
+  <div class="count count-3">0</div>
+</div>
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+https://www.geeksforgeeks.org/program-to-find-whether-a-given-number-is-power-of-2/
+
+https://www.geeksforgeeks.org/a-program-to-check-if-strings-are-rotations-of-each-other/?ref=lbp
+
+
+
+
+
+MEMOIZATION :
+
+function myMemo(fn, context) {
+	const res = {};
+	return function(...args) {
+        console.log('res === ', res);
+		var argsCache = JSON.stringify(args);
+		if(!res[args]) res[argsCache] = fn.call(context || this, ...args);
+		return res[argsCache];
+	};
+};
+
+const clumsyProd = (x, y) => {
+	for(let i = 1; i<= 1000000000; i++) {}
+	return x*y;
+};
+const memClum = myMemo(clumsyProd);
+
+console.time('first');
+console.log(memClum(100, 200));
+console.timeEnd('first');
+
+console.time('second');
+console.log(memClum(100, 200));
+console.timeEnd('second');
+
+
+
+SINGLETON: 
+
+var Singleton = (function () {
+    var instance;
+
+    function createInstance() {
+        var object = new Object("I am the instance");
+        return object;
+    }
+
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+})();
+
+function run() {
+
+    var instance1 = Singleton.getInstance();
+    var instance2 = Singleton.getInstance();
+
+    console.log("Same instance? " + (instance1 === instance2));
+}
+
+----Module Reveal
+var myRevealingModule = function () {
+
+        var privateVar = "Ben Cherry",
+            publicVar  = "Hey there!";
+
+        function privateFunction() {
+            console.log( "Name:" + privateVar );
+        }
+        
+        function publicSetName( strName ) {
+            privateVar = strName;
+        }
+
+        function publicGetName() {
+            privateFunction();
+        }
+
+
+        // Reveal public pointers to  
+        // private functions and properties
+
+        return {
+            setName: publicSetName,
+            greeting: publicVar,
+            getName: publicGetName
+        };
+
+    }();
+
+myRevealingModule.setName( "Paul Kinlan" );
+
+
+
+-----DEBOUNCE
+function debounce(fn, delay=3000) {
+    let timer;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            fn();
+        }, delay);
+    }
+}
+
+var debouncedBoxClick = debounce(() => console.log('hi'));
+
+function handleBoxClick() {
+    debouncedBoxClick();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------
+1. window.localStorage.getItem which is synchronous. Write a function to make it asynchrounous using promise. 
+(Create promise to mimic LocalStorageAsync.getItem it should return promise and the value can be accessed in then part.)
+
+2. ['apple', 'apx', 'banana'] = true; elements should be in dictionary order
+
+3. flatten any level nested array eg [1, 2, [3, [4,5], 6], 7] => [1,2,3,4,5,6,7]
+
+
+
+
+
+
+
+
+
+----------- output 
+let b, c;
+b = {'a':1};
+c = b;
+console.log(c);
+b.a = 2;
+console.log(c);
+b = null;
+console.log(c);
+modify(c)
+console.log(c)
+
+function modify(input){
+    input = {a:10}
+}
+
+ANSWER
+let b, c;
+b = {'a':1};
+c = b;
+console.log(c);// {'a':1};
+b.a = 2;
+console.log(c); // {'a':2};
+b = null;
+console.log(c); // {'a':2};
+modify(c)
+console.log(c) // {'a':2};
+
+function modify(input){
+    input = {a:10}
+}
+
+
+
+
+/* var myObject = {
+    foo: "bar",
+    func: function() {
+        var self = this;
+        console.log(this);// myObject
+        console.log(self.foo); // bar
+        (function() {
+            console.log(this) // window
+            console.log(this.foo); // undefined
+            console.log(self.foo); // bar
+        }());
+    }
+};
+myObject.func(); */
+
+var c = 10;
+(function(){
+  var a = b = 3;
+  var c = 5;
+  d = 10;// error
+})();
+
+console.log(a); // err
+console.log(b); // 3
+console.log(c); //10
+console.log(d); // 10
+

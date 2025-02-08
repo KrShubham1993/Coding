@@ -1,0 +1,56 @@
+// settings.json for cursive font
+
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.settings.applyToAllProfiles": [],
+    "explorer.confirmDelete": false,
+    "window.zoomLevel": 0.7,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    // In order to show everything in italic, uninstall FiraCodeIscript's -> 'bold' and 'regular' font from 'Font Book' in mac
+    // Cascadia Code also has quirky italic font. In order to use that place it before Fira Code Iscript
+    "editor.fontFamily": "Fira Code iScript, Cascadia Code, Menlo, Monaco, Courier New, monospace",
+    "editor.fontSize": 15,
+    "editor.fontLigatures": true,
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+          {
+            "scope": [
+              //following will be in italic (=FlottFlott)
+              "comment",
+              "entity.name.type.class", //class names
+              "keyword", //import, export, return…
+              "storage.modifier", //static keyword
+              "storage.type", //class keyword
+              "support.class.builtin",
+              "keyword.control",
+              "constant.language",
+              "entity.other.attribute-name",
+              "entity.name.method"
+            ],
+            "settings": {
+              "fontStyle": "italic"
+            }
+          },
+          {
+            "scope": [
+              //following will be excluded from italics (VSCode has some defaults for italics)
+              "invalid",
+              "keyword.operator",
+              "constant.numeric.css",
+              "keyword.other.unit.px.css",
+              "constant.numeric.decimal.js",
+              "constant.numeric.json"
+            ],
+            "settings": {
+              "fontStyle": ""
+            }
+          }
+        ]
+    },
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Tokyo Night Light",
+    "github.copilot.editor.enableAutoCompletions": true
+}

@@ -1,0 +1,169 @@
+git fetch origin                         -- fetch everything from origin
+
+git pull -r origin master                -- pull and rebase
+git add .
+
+git commit -m "message"
+git commit --amend -m "New and correct message" --  modify / edit / change last commit message
+
+git checkout -b "br.name"                -- create branch
+git checkout -b "br.name" origin/br.name -- create branch from a branch in origin i.e repo
+git checkout .                           -- revert changes made to all files in a branch
+git checkout /relative/absolute/path     -- revert changes to a particular file
+
+git diff AP-525 AP-392 fileName		 -- check difference in a file among 2 branches
+
+git rebase -i HEAD~no of commits in log  -- Used for squashing commits
+git rebase master(when in any branch)    -- used to bring latest changes in master in the current branch (local master should have latest code)
+
+git stash
+git stash save "message"                 -- give a name to the stash
+git stash drop stash@{stash no}
+git merge Branch-name 			 -- merge the specified branch with the branch you are currently in
+
+git push origin branch-name   
+git push origin branch-name -f           -- force push
+git push origin AP-221:stage -f		 -- push AP221 into stage in repository
+
+git branch -D "br.name"                  -- delete a branch 
+
+git cherry-pick commitNo                 -- cherrypick  
+
+git diff branch1 branch2 -- file name    -- check difference in a file in 2 branches
+git diff mybranch..master -- myfile.cs
+
+
+
+
+git reset --hard commitNo		 -- rollback to a previous commit and also remove changes related to this commit. Used mostly to revert 					    a merge changes.
+git reset --soft commitNo		 -- rollback to a previous commit keeping the changes related to this commit. Used mostly to revert 					    	    a merge changes. 
+
+
+git reset --soft HEAD~1                  -- rollback changes in last commit but keep changes staged.
+git reset filename 			 -- unstage changes in a file
+
+ 
+git reset --hard HEAD^			 -- we essentially have reset to the commit before HEAD. Go back one commit.
+git reset --hard HEAD@{1}		 -- To undo a hard reset on Git, going back one commit after HEAD i.e undo prev command
+					    Note : you might not be able to undo your changes if you reset your commits quite a long time 						 	   ago.In fact, Git uses a garbage collector that ensures that the local repository is 							   optimized.
+git reset --hard origin/master  	 -- if on master branch it makes the branch similar to origin/master
+
+
+history | grep 'git push'		 -- get the history and in that search for git push command's entries
+
+killall -s KILL node			 -- kill all process running on any port in node
+rm package-lock.json  			 -- remove a file
+rm -rf node_modules			 -- recurring and force remove files
+
+
+git log --graph --decorate --oneline origin/devel-2  		-- see the tree structure of a branch in repo only for devel-2
+git log --graph --decorate --oneline --all  			-- see the tree structure of a branch
+git log --graph --decorate --oneline --all origin/devel-2  	-- see the tree structure of a branch in repo
+git log --oneline --graph
+
+git branch --list RP-35*                 -- see list of branches starting with particular text
+
+CTRL+R,                                  -- search a command in commnad history
+start typing the command
+Press up arrow
+
+git branch --all | grep Security.        -- from the list of all branches pick the ones that start with name Security (i.e search for a branch with name)
+
+
+check newstack logs -- run following 2 commands
+-   ssh ubuntu@13.232.239.22   - i.e the ip address of newstack ---> and then run
+-   pm2 logs
+-pm2 restart all / FE
+
+
+--> cd /var/www/newstack  and run node webpack.server.js 
+
+--> vim  --> press enter
+--> :E then navigate to file (E for Explore)
+    -> then i to get into insert mode -> edit -> Esc -> :wq
+    -> node webpack.js   (press enter) ======( for changes made in frontend files)
+    -> pm2 start FE (get the name i.e FE by pm2 status)  or pm2 restart Fe
+pm2 server.prod.js
+
+
+
+
+
+:%s/devapi/newapi/g   -- vim replace all devapi with newapi text
+ source /etc/environment  -- in newstack ( updates env variable without logout - specific for a terminal window)
+
+
+
+
+forticlient vpn :
+203.109.116.226: 10443
+shubam.k
+Zivame123
+username - zivame-web
+pwd  --  ziv-secret 		 for postman calls
+
+
+git status
+git checkout.
+git clean -f -d
+git checkout master
+git fetch
+git branch -D devel-2
+git checkout devel-2
+git log --- see if latest commits came
+
+npm install
+node webpack
+node webpack.server.js
+node buildCss
+pm2 status -> pm2 kill (if needed)
+pm2 start process.json
+for stage ---
+pm2 start process.json --env stage
+
+--------------
+printenv -- to see env file
+--------------
+
+for ziv-otp
+cd ..
+ls
+cd ziv-otp
+pm2 start StageOTP-process.json --env production
+------
+
+if pm2 was running and you changed some file then
+pm2 restart
+
+
+https://letsencrypt.org/docs/certificates-for-localhost/        ----- required when we get certificate error in phone-login-register ticket
+openssl req -x509 -out localhost.crt -keyout localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+
+
+keepassxc - encrypt passwords
+69588576492
+
+
+
+
+
+cat access136.log | awk '{if ($7 ~ /category/) {print $0}}'
+
+
+NODE INSTALL
+nvm install 14.13 
+npm install -g npm
+
+
+
+critical render path -- google
+
+
+
+KILL REDIS
+ps aux | grep redis    -->  last line: number next to user name is port no
+kill -9 port-num
+

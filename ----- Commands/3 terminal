@@ -1,0 +1,3 @@
+Grep
+
+grep -ri "rest" .      =>  Find all files that contain "rest" text in them // recursively and ignore case

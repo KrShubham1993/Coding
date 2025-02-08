@@ -1,0 +1,42 @@
+#My Custom Aliases
+alias sshdev="ssh ubuntu@3.7.205.10"
+alias sshstage="ssh ubuntu@13.232.16.33"
+alias newalias="vim ~/.bashrc"
+alias srcbash="source ~/.bashrc"
+alias kkn="killall -s KILL node"
+
+#git
+alias gst="git status"
+alias ga.="git add ."
+alias gl="git log"
+alias gc="git checkout"
+alias gc.="git checkout ."
+alias gd="git diff"
+alias gcp="git cherry-pick"
+alias gcpc="git cherry-pick --continue"
+alias gcpa="git cherry-pick --abort"
+alias gcm="git commit"
+alias gcmm="git commit -m"
+alias gcmam="git commit --amend -m"
+alias grb="git rebase"
+alias grbi="git rebase -i"
+alias grm="git rebase master"
+alias grba="git rebase --abort"
+alias grbc="git rebase --continue"
+alias grh="git reset HEAD"
+alias gpo="git push origin"
+alias gpro="git pull -r origin"
+
+#stash
+alias gsl="git stash list"
+alias gss="git stash save"
+alias gsa="git stash apply"
+alias gsd="git stash drop"
+
+#npm
+alias ni="npm install"
+alias ns="killall -s KILL node; npm start"
+alias cdn="cd newstack"
+alias cb="git checkout -b"
+alias db="git branch -D"
+alias rip="rm -rf node_modules; rm -rf package-lock.json"
